@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
         {
             Schema::create('payments', function (Blueprint $table) {
                 $table->integer('py_id')->unique('py_id_UNIQUE');
-                $table->integer('py_mhs_id')->index('fk_payments_mahasiswas');
+                $table->integer('py_mhs_id');//->index('fk_payments_mahasiswas');
                 $table->string('py_code',20);
                 $table->string('py_name',50);
                 $table->decimal('py_value', 14, 2, true);
@@ -30,10 +30,11 @@ class CreatePaymentsTable extends Migration
                 $table->string('py_rec_createdby',150);
                 $table->dateTime('py_rec_created');
                 $table->string('py_rec_updatedby',150)->nullable();
-                $table->dateTime('py_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('py_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('py_rec_deletedby',150)->nullable();
-                $table->dateTime('py_rec_deleted')->default(date('Y-m-d H:i:s'));
-                $table->foreign('py_mhs_id')->references('mhs_id')->on('mahasiswas')->onUpdate('CASCADE')->onUpdate('CASCADE');
+                $table->dateTime('py_rec_deleted')->default(date('0001-01-01 00:00:01'));
+                $table->primary('py_id');
+                $table->foreign('py_mhs_id', 'fk_payments_mahasiswas')->references('mhs_id')->on('mahasiswas')->onUpdate('CASCADE')->onUpdate('CASCADE');
                 $table->engine = 'InnoDB';
                 $table->charset = 'utf8';
                 $table->collation = 'utf8_bin';

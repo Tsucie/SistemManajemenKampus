@@ -18,11 +18,11 @@ class CreateStaffTable extends Migration
         {
             Schema::create('staff', function (Blueprint $table) {
                 $table->integer('stf_id')->unique('stf_id_UNIQUE');
-                $table->integer('stf_u_id')->index('fk_staff_users');
-                $table->integer('stf_sc_id')->index('fk_staff_staffCategories');
-                $table->integer('stf_fks_id')->nullable()->index('fk_staff_fakultas');
-                $table->integer('stf_ps_id')->nullable()->index('fk_staff_programStudis');
-                $table->integer('stf_mk_id')->nullable()->index('fk_staff_mataKuliahs');
+                $table->integer('stf_u_id');//->index('fk_staff_users');
+                $table->integer('stf_sc_id');//->index('fk_staff_staffCategories');
+                $table->integer('stf_fks_id')->nullable();//->index('fk_staff_fakultas');
+                $table->integer('stf_ps_id')->nullable();//->index('fk_staff_programStudis');
+                $table->integer('stf_mk_id')->nullable();//->index('fk_staff_mataKuliahs');
                 $table->string('stf_fullname',150);
                 $table->string('stf_nidn',20)->nullable();
                 $table->string('stf_nidk',20)->nullable();
@@ -45,10 +45,10 @@ class CreateStaffTable extends Migration
                 $table->string('stf_rec_createdby',150);
                 $table->dateTime('stf_rec_created');
                 $table->string('stf_rec_updatedby',150)->nullable();
-                $table->dateTime('stf_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('stf_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('stf_rec_deletedby',150)->nullable();
-                $table->dateTime('stf_rec_deleted')->default(date('Y-m-d H:i:s'));
-                $table->primary(['stf_id','stf_u_id']);
+                $table->dateTime('stf_rec_deleted')->default(date('0001-01-01 00:00:01'));
+                $table->primary('stf_id');
                 $table->foreign('stf_u_id', 'fk_staff_users')->references('u_id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
                 $table->foreign('stf_sc_id', 'fk_staff_staffCategories')->references('sc_id')->on('staff_categories')->onUpdate('RESTRICT')->onDelete('RESTRICT');
                 $table->foreign('stf_fks_id', 'fk_staff_fakultas')->references('fks_id')->on('fakultas')->onUpdate('RESTRICT')->onDelete('RESTRICT');

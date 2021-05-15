@@ -18,7 +18,7 @@ class CreateSitesTable extends Migration
         {
             Schema::create('sites', function (Blueprint $table) {
                 $table->integer('s_id')->unique('s_id_UNIQUE');
-                $table->integer('s_u_id')->index('fk_sites_users');
+                $table->integer('s_u_id');//->index('fk_sites_users');
                 $table->string('s_fullname',150);
                 $table->string('s_nidn',20)->nullable();
                 $table->string('s_nidk',20)->nullable();
@@ -40,9 +40,9 @@ class CreateSitesTable extends Migration
                 $table->string('s_rec_createdby',150);
                 $table->dateTime('s_rec_created');
                 $table->string('s_rec_updatedby',150)->nullable();
-                $table->dateTime('s_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('s_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('s_rec_deletedby',150)->nullable();
-                $table->dateTime('s_rec_deleted')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('s_rec_deleted')->default(date('0001-01-01 00:00:01'));
                 $table->primary(['s_id','s_u_id']);
                 $table->foreign('s_u_id', 'fk_sites_users')->references('u_id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
                 $table->engine = 'InnoDB';

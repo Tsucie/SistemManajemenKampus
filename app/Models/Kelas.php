@@ -18,21 +18,8 @@ class Kelas extends Model
         'kls_id',
         'kls_code',
         'kls_name',
+        'kls_capacity',
+        'kls_mhs_count',
         'kls_desc'
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'kls_rec_status',
-        'kls_rec_createdby',
-        'kls_rec_created',
-        'kls_rec_updatedby',
-        'kls_rec_updated',
-        'kls_rec_deletedby',
-        'kls_rec_deleted'
     ];
 }

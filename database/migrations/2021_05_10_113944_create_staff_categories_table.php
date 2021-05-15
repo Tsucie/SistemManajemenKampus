@@ -17,7 +17,7 @@ class CreateStaffCategoriesTable extends Migration
         if (!Schema::hasTable('staff_categories'))
         {
             Schema::create('staff_categories', function (Blueprint $table) {
-                $table->integerIncrements('sc_id')->unique('sc_id_UNIQUE');
+                $table->integer('sc_id')->unique('sc_id_UNIQUE');
                 $table->string('sc_name', 50);
                 $table->string('sc_desc', 255)->nullable();
                 $table->primary('sc_id');

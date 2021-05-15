@@ -19,7 +19,14 @@ class Client extends Model
         'c_u_id',
         'c_code',
         'c_name',
-        'c_remark'
+        'c_remark',
+        // Users
+        'u_username',
+        'u_password',
+        // UserPhoto
+        'up_id',
+        'up_photo',
+        'up_filename'
     ];
 
     /**

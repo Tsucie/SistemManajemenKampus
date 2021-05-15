@@ -26,9 +26,9 @@ class CreateSemestersTable extends Migration
                 $table->string('sm_rec_createdby',150);
                 $table->dateTime('sm_rec_created');
                 $table->string('sm_rec_updatedby',150)->nullable();
-                $table->dateTime('sm_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('sm_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('sm_rec_deletedby',150)->nullable();
-                $table->dateTime('sm_rec_deleted')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('sm_rec_deleted')->default(date('0001-01-01 00:00:01'));
                 $table->primary('sm_id');
                 $table->engine = 'InnoDB';
                 $table->charset = 'utf8';

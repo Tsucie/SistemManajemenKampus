@@ -17,7 +17,7 @@ class CreateUserTypesTable extends Migration
         if (!Schema::hasTable('user_types'))
         {
             Schema::create('user_types', function (Blueprint $table) {
-                $table->integer('ut_id',true)->unique('ut_id_UNIQUE');
+                $table->integer('ut_id')->unique('ut_id_UNIQUE');
                 $table->string('ut_name',45);
                 $table->string('ut_desc',255)->nullable();
                 $table->primary('ut_id');

@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
         {
             Schema::create('clients', function (Blueprint $table) {
                 $table->integer('c_id')->unique('c_id_UNIQUE');
-                $table->integer('c_u_id')->index('fk_clients_users');
+                $table->integer('c_u_id');//->index('fk_clients_users');
                 $table->string('c_code',40)->unique('c_code_UNIQUE');
                 $table->string('c_name', 150);
                 $table->string('c_remark',150)->nullable();
@@ -26,9 +26,9 @@ class CreateClientsTable extends Migration
                 $table->string('c_rec_createdby',150);
                 $table->dateTime('c_rec_created');
                 $table->string('c_rec_updatedby',150)->nullable();
-                $table->dateTime('c_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('c_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('c_rec_deletedby',150)->nullable();
-                $table->dateTime('c_rec_deleted')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('c_rec_deleted')->default(date('0001-01-01 00:00:01'));
                 $table->primary(['c_id','c_u_id']);
                 $table->foreign('c_u_id', 'fk_clients_users')->references('u_id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
                 $table->engine = 'InnoDB';

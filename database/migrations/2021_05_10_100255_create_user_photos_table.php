@@ -18,16 +18,16 @@ class CreateUserPhotosTable extends Migration
         {
             Schema::create('user_photos', function (Blueprint $table) {
                 $table->integer('up_id')->unique('up_id_UNIQUE');
-                $table->integer('up_u_id')->index('fk_userPhotos_users');
+                $table->integer('up_u_id');//->index('fk_userPhotos_users');
                 $table->binary('up_photo');
                 $table->string('up_filename',150);
                 $table->smallInteger('up_rec_status');
                 $table->string('up_rec_createdby',150);
                 $table->dateTime('up_rec_created');
                 $table->string('up_rec_updatedby',150)->nullable();
-                $table->dateTime('up_rec_updated')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('up_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('up_rec_deletedby',150)->nullable();
-                $table->dateTime('up_rec_deleted')->default(date('Y-m-d H:i:s'));
+                $table->dateTime('up_rec_deleted')->default(date('0001-01-01 00:00:01'));
                 $table->primary(['up_id','up_u_id']);
                 $table->foreign('up_u_id', 'fk_userPhotos_users')->references('u_id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
                 $table->engine = 'InnoDB';
