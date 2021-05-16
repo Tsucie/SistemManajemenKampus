@@ -22,6 +22,7 @@
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
         <!-- My CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/mystyle.css" rel="stylesheet">
+        <link type="text/css" href="{{ asset('assets') }}/vendor/notifIt/css/notifIt.css" rel="stylesheet">
     </head>
     <body class="{{ $class ?? '' }}">
         {{-- @auth()
@@ -44,5 +45,7 @@
         
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        <script src="{{ asset('assets') }}/vendor/notifIt/js/notifIt.js"></script>
+        <script src="{{ asset('Scripts') }}/AlertMessage.js"></script>
     </body>
 </html>

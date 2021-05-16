@@ -15,7 +15,7 @@
               <div class="box-body">
                   <div class="form-group">
                       <div class="col-sm-12">
-                          <img id="profile-img" src="" width="100" height="100"/>
+                          <img id="profile-img" src="" width="100" height="100" data-id="">
                           <div>
                               <label for="u_file" class="control-label">Photo Profile</label>
                               <input type="file" class="form-control-file" id="u_file" accept="image/*">
@@ -23,7 +23,6 @@
                       </div>
                   </div>
                   <div class="form-group">
-                      {{-- <label for="u_username" class="col-sm-2 control-label">Username</label> --}}
                       <div class="col-sm-12">
                           <input type="text" class="form-control form-inputs" placeholder="Username" id="u_username">
                           <div hidden id="username-alrt" class="alert alert-danger" role="alert">
@@ -33,8 +32,7 @@
                           </div>
                       </div>
                   </div>
-                  <div hidden class="form-group" id="pass-txtbox">
-                      {{-- <label for="u_password" class="col-sm-2 control-label">Password</label> --}}
+                  <div class="form-group" id="pass-txtbox">
                       <div class="col-sm-12">
                           <input type="password" class="form-control form-inputs" placeholder="Password" id="u_password">
                           <div hidden id="password-alrt" class="alert alert-danger" role="alert">
@@ -45,13 +43,11 @@
                       </div>
                   </div>
                   <div class="form-group">
-                      {{-- <label for="c_name" class="col-sm-2 control-label">Director Name</label> --}}
                       <div class="col-sm-12">
                           <input type="text" class="form-control form-inputs" placeholder="Fullname" id="c_name">
                       </div>
                   </div>
                   <div class="form-group">
-                      {{-- <label for="c_remark" class="col-sm-2 control-label">Director Mark</label> --}}
                       <div class="col-sm-12">
                           <input type="text" class="form-control form-inputs" placeholder="Remark" id="c_remark">
                       </div>
@@ -102,7 +98,11 @@
                                 <th scope="row">
                                     <div class="media align-items-center">
                                         <a href="#" class="avatar rounded-circle mr-3">
-                                            <img src="data:image/{{ pathinfo($item->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($item->up_photo) }}" alt="img">
+                                            @if ($item->up_photo != null)
+                                                <img src="data:image/{{ pathinfo($item->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($item->up_photo) }}" alt="img">
+                                            @else
+                                                <img src="{{ asset('ProfileImg') }}/DefaultPPimg.jpg" alt="img">
+                                            @endif
                                         </a>
                                         <div class="media-body">
                                             <span class="name mb-0 text-sm">{{ $item->c_name }}</span>
@@ -113,9 +113,9 @@
                                 <td class="username">{{ $item->u_username }}</td>
                                 <td class="remark">{{ $item->c_remark }}</td>
                                 <td class="action">
-                                    <a class="btn btn-sm btn-warning btn-table" data-toggle="tooltip" data-html="true" title="See All Data" id="btndetail{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}">Details</a>
-                                    <a class="btn btn-sm btn-primary btn-table" data-toggle="tooltip" data-html="true" title="Edit Data" id="btnedit{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}">Edit</a>
-                                    <a class="btn btn-sm btn-danger btn-table" data-toggle="tooltip" data-html="true" title="Delete Data" id="btndelete{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}">Delete</a>
+                                    <a class="btn btn-sm btn-warning btn-table" data-toggle="tooltip" data-html="true" title="See All Data" id="btndetail{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowDetails(this)">Details</a>
+                                    <a class="btn btn-sm btn-primary btn-table" data-toggle="tooltip" data-html="true" title="Edit Data" id="btnedit{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowEditModals(this)">Edit</a>
+                                    <a class="btn btn-sm btn-danger btn-table" data-toggle="tooltip" data-html="true" title="Delete Data" id="btndelete{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="DeleteClient(this)">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

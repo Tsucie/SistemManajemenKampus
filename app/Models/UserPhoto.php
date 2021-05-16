@@ -9,6 +9,8 @@ class UserPhoto extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,15 +20,7 @@ class UserPhoto extends Model
         'up_id',
         'up_u_id',
         'up_photo',
-        'up_filename'
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
+        'up_filename',
         'up_rec_status',
         'up_rec_createdby',
         'up_rec_created',
@@ -35,4 +29,11 @@ class UserPhoto extends Model
         'up_rec_deletedby',
         'up_rec_deleted'
     ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 }

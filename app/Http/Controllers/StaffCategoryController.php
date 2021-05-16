@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StaffCategory;
 use Exception;
-use General\ResponseMessage;
+use App\Models\ResponseMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +19,7 @@ class StaffCategoryController extends Controller
     {
         $staff_categories = StaffCategory::all();
         return view('StaffCategory.index', compact('staff_categories'));
+        // return csrf_token();
     }
 
     /**
@@ -28,7 +29,7 @@ class StaffCategoryController extends Controller
      */
     public function create()
     {
-        //
+        //Not Used because using API Route
     }
 
     /**
@@ -45,6 +46,7 @@ class StaffCategoryController extends Controller
         {
             $request->validate(['sc_name' => 'required']);
         
+            $request->merge(['sc_id' => rand(6,2147483647)]);
             // Name in the form must match with the model column names!
             StaffCategory::create($request->all());
 
@@ -73,9 +75,9 @@ class StaffCategoryController extends Controller
         try
         {
             if (preg_match("/[A-Za-z]/", $id)) throw new Exception("Invalid Data", 0);
-            $category = DB::table('staff_categories')->select()->where('sc_id', '=', $id)->get();
+            $data = DB::table('staff_categories')->select()->where('sc_id', '=', $id)->get();
 
-            return response()->json(compact('category'));
+            return response()->json(compact('data'));
         }
         catch (Exception $ex)
         {
@@ -94,26 +96,31 @@ class StaffCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Not used because using API Route
     }
 
     /**
      * [PUT/PATCH([controller]/{$id})]Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StaffCategory $sc
+     * @param  int $id
      * @return \Illuminate\Http\Response json()
      */
-    public function update(Request $request, StaffCategory $sc)
+    public function update(Request $request, $id)
     {
         $resmsg = new ResponseMessage();
 
         try
         {
-            if ($sc == null) throw new Exception("Incomplete Data", 0);
-            $request->validate(['sc_name' => 'required']);
+            if (preg_match("/[A-Za-z]/", $id)) throw new Exception("Invalid Data", 0);
+            $request->validate([
+                'sc_name' => 'required',
+                'sc_desc' => 'required'
+            ]);
 
-            $sc->update($request->all());
+            DB::table('staff_categories')
+                ->where('sc_id', '=', $id)
+                ->update($request->all());
 
             $resmsg->code = 1;
             $resmsg->message = "Data has edited";
@@ -132,18 +139,20 @@ class StaffCategoryController extends Controller
     /**
      * [DELETE([controller]/{$id})] Remove the specified resource from storage.
      *
-     * @param  \App\Models\StaffCategory $sc
+     * @param  int $id
      * @return \Illuminate\Http\Response json()
      */
-    public function destroy(StaffCategory $sc)
+    public function destroy($id)
     {
         $resmsg = new ResponseMessage();
 
         try
         {
-            if ($sc == null) throw new Exception("Incomplete Data", 0);
+            if (preg_match("/[A-Za-z]/", $id)) throw new Exception("Invalid Data", 0);
             
-            $sc->delete();
+            DB::table('staff_categories')
+                ->where('sc_id', '=', $id)
+                ->delete();
 
             $resmsg->code = 1;
             $resmsg->message = "Data has deleted";
