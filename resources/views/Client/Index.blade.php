@@ -49,7 +49,7 @@
                   </div>
                   <div class="form-group">
                       <div class="col-sm-12">
-                          <input type="text" class="form-control form-inputs" placeholder="Remark" id="c_remark">
+                          <input type="text" class="form-control form-inputs" placeholder="Position" id="c_remark">
                       </div>
                   </div>
               </div>
@@ -70,55 +70,61 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card bg-default shadow shadow-dark">
                     <!-- Card header -->
-                    <div class="card-header border-0">
-                        <h3 class="mb-0">Directors</h3>
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="text-white mb-0">Directors</h3>
                         <div class="pull-right">
-                            <a href="#" class="btn btn-primary" role="button" data-toggle="modal" data-target="#AddEditModal" id="Add-btn">Add Directors</a>
+                            <a href="#" class="btn btn-success" role="button" data-toggle="modal" data-target="#AddEditModal" id="Add-btn">Add Directors</a>
                         </div>
                     </div>
                     <!-- Light table -->
                     <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
+                        <table class="table align-items-center table-dark table-flush">
+                        <thead class="thead-dark">
                             <tr>
                             <th scope="col" class="sort" data-sort="photo">Photo
                                 <span class="sort" data-sort="name">&nbsp;&nbsp;&nbsp;&nbsp;Name</span>
                             </th>
                             <th scope="col" class="sort" data-sort="code">Code</th>
                             <th scope="col" class="sort" data-sort="username">Username</th>
-                            <th scope="col" class="sort" data-sort="remark">remark</th>
+                            <th scope="col" class="sort" data-sort="position">Position</th>
                             <th scope="col" class="sort" data-sort="action">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="list" id="table-client">
-                            @foreach ($client as $item)
-                            <tr>
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <a href="#" class="avatar rounded-circle mr-3">
-                                            @if ($item->up_photo != null)
-                                                <img src="data:image/{{ pathinfo($item->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($item->up_photo) }}" alt="img">
-                                            @else
-                                                <img src="{{ asset('ProfileImg') }}/DefaultPPimg.jpg" alt="img">
-                                            @endif
-                                        </a>
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">{{ $item->c_name }}</span>
+                            @forelse ($client as $item)
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                @if ($item->up_photo != null)
+                                                    <img src="data:image/{{ pathinfo($item->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($item->up_photo) }}" alt="img">
+                                                @else
+                                                    <img src="{{ asset('ProfileImg') }}/DefaultPPimg.jpg" alt="img">
+                                                @endif
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">{{ $item->c_name }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </th>
-                                <td class="code">{{ $item->c_code }}</td>
-                                <td class="username">{{ $item->u_username }}</td>
-                                <td class="remark">{{ $item->c_remark }}</td>
-                                <td class="action">
-                                    <a class="btn btn-sm btn-warning btn-table" data-toggle="tooltip" data-html="true" title="See All Data" id="btndetail{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowDetails(this)">Details</a>
-                                    <a class="btn btn-sm btn-primary btn-table" data-toggle="tooltip" data-html="true" title="Edit Data" id="btnedit{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowEditModals(this)">Edit</a>
-                                    <a class="btn btn-sm btn-danger btn-table" data-toggle="tooltip" data-html="true" title="Delete Data" id="btndelete{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="DeleteClient(this)">Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
+                                    </th>
+                                    <td class="code">{{ $item->c_code }}</td>
+                                    <td class="username">{{ $item->u_username }}</td>
+                                    <td class="position">{{ $item->c_remark }}</td>
+                                    <td class="action">
+                                        <a class="btn btn-sm btn-info btn-table" data-toggle="tooltip" data-html="true" title="See All Data" id="btndetail{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowDetails(this)">Details</a>
+                                        <a class="btn btn-sm btn-primary btn-table" data-toggle="tooltip" data-html="true" title="Edit Data" id="btnedit{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="ShowEditModals(this)">Edit</a>
+                                        <a class="btn btn-sm btn-danger btn-table" data-toggle="tooltip" data-html="true" title="Delete Data" id="btndelete{{ $loop->index }}" role="button" data_id="{{ $item->c_u_id }}" onclick="DeleteClient(this)">Delete</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">
+                                        <h4 style="text-align: center; color: white;">There is no data</h4>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                         </table>
                     </div>

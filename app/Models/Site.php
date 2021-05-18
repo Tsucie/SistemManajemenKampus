@@ -9,6 +9,8 @@ class Site extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,9 +20,11 @@ class Site extends Model
         's_id',
         's_u_id',
         's_fullname',
+        's_remark',
         's_nidn',
         's_nidk',
         's_nip',
+        's_num_stat',
         's_education',
         's_experience',
         's_address',
@@ -32,7 +36,14 @@ class Site extends Model
         's_state',
         's_email',
         's_status',
-        's_contact'
+        's_contact',
+        // Users
+        'u_username',
+        'u_password',
+        // UserPhoto
+        'up_id',
+        'up_photo',
+        'up_filename'
     ];
 
     /**

@@ -128,7 +128,7 @@ function AddClient() {
         success: function (data) {
             if (data.code == 1) {
                 pesanAlert(data);
-                setTimeout(function () { window.location.reload() }, 3000);
+                setTimeout(function () { window.location.reload() }, 2000);
             }
             else {
                 pesanAlert(data);
@@ -201,7 +201,7 @@ function EditClient() {
         success: function (data) {
             if (data.code == 1) {
                 pesanAlert(data);
-                setTimeout(function () { window.location.reload() }, 3000);
+                setTimeout(function () { window.location.reload() }, 2000);
             }
             else {
                 pesanAlert(data);
@@ -231,7 +231,7 @@ function DeleteClient(obj) {
             success: function (data) {
                 if (data.code == 1) {
                     pesanAlert(data);
-                    setTimeout(function () { window.location.reload() }, 3000);
+                    setTimeout(function () { window.location.reload() }, 2000);
                 }
                 else {
                     pesanAlert(data);

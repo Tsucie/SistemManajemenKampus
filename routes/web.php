@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StaffCategoryController;
 use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +41,13 @@ Route::apiResources([
  * @param Array ['URI' => controller::class]
 */
 Route::resources([
-	
+	'Site' => SiteController::class
 ]);
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 // Route yang harus menggunakan AUTH
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/client', 'App\Http\Controllers\ClientController@index')->name('client');
+Route::get('/site', 'App\Http\Controllers\SiteController@index')->name('site');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

@@ -36,7 +36,7 @@ class ClientController extends Controller
                       ->select('clients.*', 'users.u_username', 'user_photos.up_filename', 'user_photos.up_photo')
                       ->where('clients.c_rec_status', '=', 1)
                       ->get();
-        // dd($client);
+        
         return view('Client.Index', compact('client'));
     }
 
@@ -189,7 +189,7 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Not Used because using API Route
     }
 
     /**
