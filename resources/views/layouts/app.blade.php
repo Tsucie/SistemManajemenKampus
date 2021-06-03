@@ -25,14 +25,17 @@
         <link type="text/css" href="{{ asset('assets') }}/vendor/notifIt/css/notifIt.css" rel="stylesheet">
     </head>
     <body class="{{ $class ?? '' }}">
-        {{-- @auth()
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @auth()
+            @php
+                $userPhoto = auth()->user()->hasPhoto()->where('up_rec_status', 1)->get()->all();
+            @endphp
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="u_id" value="{{ auth()->user()->u_id }}" hidden>
             </form>
             @include('layouts.navbars.sidebar')
-        @endauth --}}
+        @endauth
 
-        @include('layouts.navbars.sidebar')
         <div class="main-content">
             @include('layouts.navbars.navbar')
             @yield('content')
@@ -47,5 +50,6 @@
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
         <script src="{{ asset('assets') }}/vendor/notifIt/js/notifIt.js"></script>
         <script src="{{ asset('Scripts') }}/AlertMessage.js"></script>
+        <script src="{{ asset('Scripts') }}/App.js"></script>
     </body>
 </html>

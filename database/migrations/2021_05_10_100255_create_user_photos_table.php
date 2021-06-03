@@ -18,7 +18,7 @@ class CreateUserPhotosTable extends Migration
         {
             Schema::create('user_photos', function (Blueprint $table) {
                 $table->integer('up_id')->unique('up_id_UNIQUE');
-                $table->integer('up_u_id');//->index('fk_userPhotos_users');
+                $table->integer('up_u_id');
                 $table->binary('up_photo');
                 $table->string('up_filename',150);
                 $table->smallInteger('up_rec_status');

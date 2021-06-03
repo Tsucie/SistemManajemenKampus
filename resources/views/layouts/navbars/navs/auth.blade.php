@@ -1,6 +1,10 @@
 <!-- Top navbar -->
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
+        <!-- Toggler -->
+        <button class="mb-0 ml--4 mr-2 d-none d-lg-inline-block" id="sidebar-toggler" title="click to adjust sidebar" onclick="toggleSidebar(this)">
+            <i class="navbar-toggler-icon"></i>
+        </button>
         <!-- Title -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}" id="header-title" title="click to go Dashboard">{{ __('Dashboard') }}</a>
         <!-- Search -->
@@ -20,17 +24,21 @@
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+                            @if (auth()->user()->hasPhoto()->exists())
+                                <img src="data:image/{{ pathinfo($userPhoto[0]->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($userPhoto[0]->up_photo) }}" alt="Profile">
+                            @else
+                                <img src="{{ asset('argon') }}/img/theme/DefaultPPimg.jpg" alt="Profile" >
+                            @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             {{-- <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span> --}}
-                            <span class="mb-0 text-sm  font-weight-bold">Tsucie</span>
+                            <span class="mb-0 text-sm  font-weight-bold">{{ str_replace('@','',auth()->user()->u_username) }}</span>
                         </div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
+                        <h6 class="text-overflow m-0">{{ __('Welcome '.str_replace('@','',auth()->user()->u_username).' !') }}</h6>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
@@ -49,11 +57,11 @@
                         <span>{{ __('Support') }}</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    {{-- <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
                         <i class="ni ni-user-run"></i>
                         <span>{{ __('Logout') }}</span>
-                    </a> --}}
+                    </a>
                 </div>
             </li>
         </ul>

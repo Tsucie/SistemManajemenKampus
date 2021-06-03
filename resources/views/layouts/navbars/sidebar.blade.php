@@ -5,10 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a href="{{ route('home') }}">
-            {{-- <img src="{{ asset('argon') }}/img/brand/blue.png"> --}}
-            <img src="{{ asset('argon') }}/img/brand/Kampus.png" width="100%">
-        </a>
+        <img class="brand-img" src="{{ asset('argon') }}/img/brand/Kampus.png" width="100%">
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
             <li class="nav-item dropdown">
@@ -16,7 +13,11 @@
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
                         <!-- Profile IMG -->
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-1-800x800.jpg">
+                        @if (auth()->user()->hasPhoto()->exists())
+                            <img src="data:image/{{ pathinfo($userPhoto[0]->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($userPhoto[0]->up_photo) }}" alt="Profile">
+                        @else
+                            <img src="{{ asset('argon') }}/img/theme/DefaultPPimg.jpg" alt="Profile" >
+                        @endif
                         </span>
                     </div>
                 </a>
@@ -56,8 +57,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            {{-- <img src="{{ asset('argon') }}/img/brand/blue.png"> --}}
-                            <img src="{{ asset('argon') }}/img/brand/Kampus.png"  width="200px">
+                            <img src="{{ asset('argon') }}/img/brand/Kampus.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -79,6 +79,8 @@
                     </div>
                 </div>
             </form>
+            <!-- Divider -->
+            <hr class="my-3 d-md-none">
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -93,16 +95,6 @@
                     </a>
                     <div class="collapse" id="navbar-official">
                         <ul class="nav nav-sm flex-column">
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('User profile') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
-                                </a>
-                            </li> --}}
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('client') }}">
                                     <i class="fas fa-user-tie"></i> {{ __('Directors') }}
@@ -124,8 +116,18 @@
                     <div class="collapse" id="navbar-staff">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('staff') }}">
+                                    <i class="fas fa-user"></i> {{ __('Staff Management') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <i class="fas fa-user"></i> {{ __('Deans') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-user"></i> {{ __('Head of Research') }}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -166,50 +168,9 @@
                         </ul>
                     </div>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('table') }}">
-                      <i class="ni ni-bullet-list-67 text-default"></i>
-                      <span class="nav-link-text">Tables</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-circle-08 text-pink"></i> {{ __('Register') }}
-                    </a>
-                </li> --}}
             </ul>
             <!-- Divider -->
-            {{-- <hr class="my-3">
-            <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
-            <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
-                    </a>
-                </li>
-            </ul> --}}
+            <hr class="my-3">
         </div>
     </div>
 </nav>

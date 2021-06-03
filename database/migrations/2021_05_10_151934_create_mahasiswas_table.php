@@ -18,9 +18,9 @@ class CreateMahasiswasTable extends Migration
         {
             Schema::create('mahasiswas', function (Blueprint $table) {
                 $table->integer('mhs_id')->unique('mhs_id_UNIQUE');
-                $table->integer('mhs_u_id');//->index('fk_mahasiswas_users');
-                $table->integer('mhs_fks_id');//->index('fk_mahasiswas_fakultas');
-                $table->integer('mhs_ps_id');//->index('fk_mahasiswas_programStudis');
+                $table->integer('mhs_u_id');
+                $table->integer('mhs_fks_id');
+                $table->integer('mhs_ps_id');
                 $table->string('mhs_fullname',150);
                 $table->string('mhs_first_registered',20);
                 $table->string('mhs_nim',20);

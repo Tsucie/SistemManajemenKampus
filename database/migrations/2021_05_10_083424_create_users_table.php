@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
         {
             Schema::create('users', function (Blueprint $table) {
                 $table->integer('u_id')->unique('u_id_UNIQUE');
-                $table->integer('u_ut_id');//->index('fk_users_userTypes');
+                $table->integer('u_ut_id');
                 $table->string('u_username',150)->unique('u_username_UNIQUE');
                 $table->string('u_password');
                 $table->dateTime('u_login_time')->default(now());
@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
                 $table->dateTime('u_rec_updated')->default(date('0001-01-01 00:00:01'));
                 $table->string('u_rec_deletedby',150)->nullable();
                 $table->dateTime('u_rec_deleted')->default(date('0001-01-01 00:00:01'));
+                $table->string('remember_token', 100)->nullable();
                 $table->primary(['u_id','u_ut_id']);
                 $table->foreign('u_ut_id', 'fk_users_userTypes')->references('ut_id')->on('user_types')->onUpdate('NO ACTION')->onDelete('NO ACTION');
                 $table->engine = 'InnoDB';

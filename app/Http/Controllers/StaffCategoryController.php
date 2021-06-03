@@ -17,9 +17,8 @@ class StaffCategoryController extends Controller
      */
     public function index()
     {
-        $staff_categories = StaffCategory::all();
-        return view('StaffCategory.index', compact('staff_categories'));
-        // return csrf_token();
+        $data = StaffCategory::all();
+        return response()->json($data);
     }
 
     /**
@@ -113,14 +112,9 @@ class StaffCategoryController extends Controller
         try
         {
             if (preg_match("/[A-Za-z]/", $id)) throw new Exception("Invalid Data", 0);
-            $request->validate([
-                'sc_name' => 'required',
-                'sc_desc' => 'required'
-            ]);
+            $request->validate(['sc_name' => 'required']);
 
-            DB::table('staff_categories')
-                ->where('sc_id', '=', $id)
-                ->update($request->all());
+            DB::table('staff_categories')->where('sc_id', '=', $id)->update($request->all());
 
             $resmsg->code = 1;
             $resmsg->message = "Data has edited";
@@ -150,9 +144,7 @@ class StaffCategoryController extends Controller
         {
             if (preg_match("/[A-Za-z]/", $id)) throw new Exception("Invalid Data", 0);
             
-            DB::table('staff_categories')
-                ->where('sc_id', '=', $id)
-                ->delete();
+            DB::table('staff_categories')->where('sc_id', '=', $id)->delete();
 
             $resmsg->code = 1;
             $resmsg->message = "Data has deleted";

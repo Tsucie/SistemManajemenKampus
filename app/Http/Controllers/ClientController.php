@@ -9,20 +9,11 @@ use App\Models\ResponseMessage;
 use App\Models\UserPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 
 class ClientController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -107,7 +98,7 @@ class ClientController extends Controller
                 'u_id' => $u_id,
                 'u_ut_id' => 1,
                 'u_username' => '@'.$client->u_username,
-                'u_password' => hash('sha256', $client->u_password),
+                'u_password' => Hash::make($client->u_password),
                 'u_rec_status' => 1,
                 'u_rec_createdby' => strlen(trim($client->creator)) == 0 ? 'system' : $client->creator,
                 'u_rec_created' => date('Y-m-d H:i:s')

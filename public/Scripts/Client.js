@@ -152,7 +152,6 @@ function GetClient(id) {
         contentType: "application/json",
         success: function (data) {
             if (data != null) {
-                console.log(data);
                 if (data[0].up_filename != null) {
                     let fileExt = data[0].up_filename.split('.').pop();
                     $('#profile-img').attr('src','data:image/'+fileExt+';base64,'+data[0].up_photo+'');

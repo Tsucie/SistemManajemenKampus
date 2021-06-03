@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
         {
             Schema::create('payments', function (Blueprint $table) {
                 $table->integer('py_id')->unique('py_id_UNIQUE');
-                $table->integer('py_mhs_id');//->index('fk_payments_mahasiswas');
+                $table->integer('py_mhs_id');
                 $table->string('py_code',20);
                 $table->string('py_name',50);
                 $table->decimal('py_value', 14, 2, true);

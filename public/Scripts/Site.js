@@ -1,12 +1,9 @@
-const appUrl = "http://127.0.0.1:8000";
-
 $(document).ready(function () {
     $('#header-title').text('List of Rectors');
 });
 
 $('#image').on('change', function () {
     readUrl(this, '#profile-img');
-    console.log(this.files[0]);
 });
 
 function readUrl(input, selector) {

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     public $timestamps = false;
+
+    protected $primaryKey = 'u_id';
 
     /**
      * The attributes that are mass assignable.
@@ -40,4 +43,27 @@ class User extends Model
         'u_rec_deletedby',
         'u_rec_deleted'
     ];
+
+    /**
+     * Eloquent Relationships
+     */
+    public function hasPhoto()
+    {
+        return $this->hasOne(UserPhoto::class, 'up_u_id', 'u_id');
+    }
+
+    public function hasClient()
+    {
+        return $this->hasOne(Client::class, 'c_u_id', 'u_id');
+    }
+
+    public function hasSite() 
+    {
+        return $this->hasOne(Site::class, 's_u_id', 'u_id');
+    }
+
+    public function hasStaff()
+    {
+        return $this->hasOne(Staff::class, 'stf_u_id', 'u_id');
+    }
 }

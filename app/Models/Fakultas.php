@@ -9,6 +9,8 @@ class Fakultas extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,15 +19,7 @@ class Fakultas extends Model
     protected $fillable = [
         'fks_id',
         'fks_name',
-        'fks_desc'
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
+        'fks_desc',
         'fks_rec_status',
         'fks_rec_createdby',
         'fks_rec_created',
@@ -34,4 +28,11 @@ class Fakultas extends Model
         'fks_rec_deletedby',
         'fks_rec_deleted'
     ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 }

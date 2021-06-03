@@ -11,6 +11,17 @@ class UserPhoto extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = 'up_id';
+
+    protected $foreign = 'up_u_id';
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'user_photos';
+
     /**
      * The attributes that are mass assignable.
      *

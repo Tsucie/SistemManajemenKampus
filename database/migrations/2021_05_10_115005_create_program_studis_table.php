@@ -18,7 +18,7 @@ class CreateProgramStudisTable extends Migration
         {
             Schema::create('program_studis', function (Blueprint $table) {
                 $table->integer('ps_id')->unique('ps_id_UNIQUE');
-                $table->integer('ps_fks_id');//->index('fk_programStudis_fakultas');
+                $table->integer('ps_fks_id');
                 $table->string('ps_name',100);
                 $table->string('ps_desc',255)->nullable();
                 $table->smallInteger('ps_rec_status');

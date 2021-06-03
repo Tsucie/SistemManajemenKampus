@@ -35,6 +35,7 @@
                                     @endif
                                     <div>
                                         <label for="image" class="control-label text-white">Photo Profile</label>
+                                        <input type="text" hidden value="{{ $data[0]->up_id }}" name="up_id" id="up_id">
                                         <input type="file" class="form-control-file text-white" id="image" name="image" placeholder="image" value="{{ $data[0]->up_filename }}">
                                     </div>
                                 </div>

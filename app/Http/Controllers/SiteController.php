@@ -4,24 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ImageProcessor;
 use Exception;
-use Intervention\Image\Facades\Image;
 use App\Models\UserPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Hash;
 
 class SiteController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -105,9 +94,9 @@ class SiteController extends Controller
         $user = new Request();
         $user->merge([
             'u_id' => $u_id,
-            'u_ut_id' => 1,
+            'u_ut_id' => 2,
             'u_username' => '@'.$site->u_username,
-            'u_password' => hash('sha256', $site->u_password),
+            'u_password' => Hash::make($site->u_password),
             'u_rec_status' => 1,
             'u_rec_createdby' => strlen(trim($site->creator)) == 0 ? 'system' : $site->creator,
             'u_rec_created' => date('Y-m-d H:i:s')
@@ -129,12 +118,11 @@ class SiteController extends Controller
             DB::insert($querySite);
 
             DB::commit();
-            return redirect()->route('Site.index')->with('Success', 'Data has created');
+            return redirect()->route('Site.index')->with('1', 'Data has created');
         }
         catch (Exception $ex) {
             DB::rollBack();
-            dd($ex);
-            return redirect()->route('Site.index')->with('Error', $ex->getCode().':'.$ex->getMessage());
+            return redirect()->route('Site.index')->with('0', $ex->getCode().':'.$ex->getMessage());
         }
     }
 

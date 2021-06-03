@@ -9,6 +9,8 @@ class ProgramStudi extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,15 +20,7 @@ class ProgramStudi extends Model
         'ps_id',
         'ps_fks_id',
         'ps_name',
-        'ps_desc'
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
+        'ps_desc',
         'ps_rec_status',
         'ps_rec_createdby',
         'ps_rec_created',
@@ -35,4 +29,11 @@ class ProgramStudi extends Model
         'ps_rec_deletedby',
         'ps_rec_deleted'
     ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 }

@@ -27,7 +27,7 @@
                                     <th scope="col" class="sort" data-sort="action">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="list" id="table-site">
+                            <tbody class="list">
                                 @forelse ($site as $item)
                                     <tr>
                                         <th scope="row">

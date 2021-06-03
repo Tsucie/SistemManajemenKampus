@@ -92,7 +92,7 @@
                             <th scope="col" class="sort" data-sort="action">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="list" id="table-client">
+                        <tbody class="list">
                             @forelse ($client as $item)
                                 <tr>
                                     <th scope="row">

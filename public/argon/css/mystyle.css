@@ -1,3 +1,51 @@
+@media (max-width: 768px) {
+    .brand-img {
+        width: 50%;
+    }
+}
+
+@keyframes rotate-icon {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 992px) {
+    #sidenav-main {
+        max-width: 100% !important;
+    }
+    .main-content {
+        margin-left: 0px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    
+}
+
+.navbar-nav:hover {
+    max-width: 250px !important;
+}
+
+.rotate-icon {
+    -ms-animation: rotate-icon 2s linear infinite;
+    -moz-animation: rotate-icon 2s linear infinite;
+    -webkit-animation: rotate-icon 2s linear infinite;
+    -o-animation: rotate-icon 2s linear infinite;
+    animation: rotate-icon 2s linear infinite;
+}
+
 .pull-right {
     position: absolute;
     right: 10px;
@@ -55,4 +103,22 @@
     border-radius: 50%;
     padding: 4px;
     margin: 10px 4px;
+}
+
+#sidebar-toggler {
+    color: #f1f1f17e;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+#sidebar-toggler:hover {
+    font-weight: bolder;
+    color: #f1f1f1;
+    box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.2);
+}
+
+#sidenav-main {
+    transition: all 0.3s;
 }

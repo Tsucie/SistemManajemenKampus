@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
         {
             Schema::create('clients', function (Blueprint $table) {
                 $table->integer('c_id')->unique('c_id_UNIQUE');
-                $table->integer('c_u_id');//->index('fk_clients_users');
+                $table->integer('c_u_id');
                 $table->string('c_code',40)->unique('c_code_UNIQUE');
                 $table->string('c_name', 150);
                 $table->string('c_remark',150)->nullable();

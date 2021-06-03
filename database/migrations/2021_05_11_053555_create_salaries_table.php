@@ -18,8 +18,8 @@ class CreateSalariesTable extends Migration
         {
             Schema::create('salaries', function (Blueprint $table) {
                 $table->integer('sal_id')->unique('sal_id_UNIQUE');
-                $table->integer('sal_stf_id')->nullable();//->index('fk_salaries_staff');
-                $table->integer('sal_s_id')->nullable();//->index('fk_salaries_sites');
+                $table->integer('sal_stf_id')->nullable();
+                $table->integer('sal_s_id')->nullable();
                 $table->string('sal_code',20);
                 $table->string('sal_name',50);
                 $table->decimal('sal_value', 14, 2, true);

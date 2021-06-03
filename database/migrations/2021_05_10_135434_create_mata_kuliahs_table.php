@@ -18,8 +18,8 @@ class CreateMataKuliahsTable extends Migration
         {
             Schema::create('mata_kuliahs', function (Blueprint $table) {
                 $table->integer('mk_id')->unique('mk_id_UNIQUE');
-                $table->integer('mk_ps_id');//->index('fk_mataKuliahs_programStudis');
-                $table->integer('mk_sm_id');//->index('fk_mataKuliahs_semesters');
+                $table->integer('mk_ps_id');
+                $table->integer('mk_sm_id');
                 $table->integer('mk_sks');
                 $table->integer('mk_mutu');
                 $table->string('mk_code',12);

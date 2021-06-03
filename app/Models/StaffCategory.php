@@ -21,4 +21,14 @@ class StaffCategory extends Model
         'sc_name',
         'sc_desc'
     ];
+
+    /**
+     * Eloquent Relationship
+     * Get all staffs for a staff_category (One-To-Many)
+     */
+    public function staffs()
+    {
+        //                    The ChildTbl, child_fk,  parent_id
+        return $this->hasMany(Staff::class,'stf_sc_id','sc_id');
+    }
 }

@@ -9,6 +9,8 @@ class Staff extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +24,7 @@ class Staff extends Model
         'stf_ps_id',
         'stf_mk_id',
         'stf_fullname',
+        'stf_num_stat',
         'stf_nidn',
         'stf_nidk',
         'stf_nip',
@@ -37,7 +40,14 @@ class Staff extends Model
         'stf_state',
         'stf_email',
         'stf_status',
-        'stf_contact'
+        'stf_contact',
+        // Users
+        'u_username',
+        'u_password',
+        // UserPhoto
+        'up_id',
+        'up_photo',
+        'up_filename'
     ];
 
     /**
@@ -54,4 +64,14 @@ class Staff extends Model
         'stf_rec_deletedby',
         'stf_rec_deleted'
     ];
+
+    /**
+     * Eloquent Relationship
+     * Get staff_category that owns the staff (One-To-Many(Inverse) or Many-To-One)
+     */
+    public function staff_category()
+    {
+        //                      The ParentTbl,        child_fk,  parent_id
+        return $this->belongsTo(StaffCategory::class,'stf_sc_id','sc_id');
+    }
 }

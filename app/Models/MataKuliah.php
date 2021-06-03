@@ -9,6 +9,8 @@ class MataKuliah extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,15 +25,7 @@ class MataKuliah extends Model
         'mk_code',
         'mk_name',
         'mk_semester',
-        'mk_desc'
-    ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
+        'mk_desc',
         'mk_rec_status',
         'mk_rec_createdby',
         'mk_rec_created',
@@ -40,4 +34,11 @@ class MataKuliah extends Model
         'mk_rec_deletedby',
         'mk_rec_deleted'
     ];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = [];
 }
