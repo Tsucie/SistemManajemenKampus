@@ -1,4 +1,4 @@
-![Github Logo] (\public\argon\img\brand\Kampus.png)
+![Github Logo](\public\argon\img\brand\Kampus.png)
 
 ## SistemManajemenKampus
 >  Applikasi CMS Manajemen kampus menggunakan Laravel
