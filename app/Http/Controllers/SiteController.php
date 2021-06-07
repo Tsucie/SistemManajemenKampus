@@ -244,7 +244,7 @@ class SiteController extends Controller
             DB::table('sites')->where('s_u_id', '=', $id)->update($site->all());
 
             DB::commit();
-            return redirect()->route('Site.index')->with('Success', 'Data has created');
+            return redirect()->route('Site.index')->with('Success', 'Data has edited');
         }
         catch (Exception $ex) {
             DB::rollBack();

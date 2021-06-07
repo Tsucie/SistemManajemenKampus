@@ -224,6 +224,9 @@ class StaffController extends Controller
         }
 
         $stf = new Request();
+        if ($req->stf_fks_id != "null") $stf->merge(['stf_fks_id' => $req->stf_fks_id]);
+        if ($req->stf_ps_id != "null") $stf->merge(['stf_ps_id' => $req->stf_ps_id]);
+        if ($req->stf_mk_id != "null") $stf->merge(['stf_mk_id' => $req->stf_mk_id]);
         $stf->merge([
             'stf_sc_id' => $req->stf_sc_id,
             'stf_fullname' => $req->stf_fullname,
@@ -265,7 +268,7 @@ class StaffController extends Controller
             Staff::query()->where('stf_u_id','=',$id)->update($stf->all());
 
             DB::commit();
-            return redirect()->route('Staff.index')->with('Success', 'Data has created');
+            return redirect()->route('Staff.index')->with('Success', 'Data has edited');
         }
         catch (Exception $ex) {
             DB::rollBack();
@@ -369,14 +372,18 @@ class StaffController extends Controller
                     ->join('users','staff.stf_u_id','=','users.u_id')
                     ->join('staff_categories','staff.stf_sc_id','=','staff_categories.sc_id')
                     ->leftJoin('user_photos','staff.stf_u_id','=','user_photos.up_u_id')
-                    ->select('staff.*', 'users.u_username','user_photos.up_id', 'user_photos.up_filename', 'user_photos.up_photo', 'staff_categories.sc_name')
+                    ->leftJoin('fakultas', 'staff.stf_fks_id', '=', 'fakultas.fks_id')
+                    ->leftJoin('program_studis', 'staff.stf_ps_id', '=', 'program_studis.ps_id')
+                    ->leftJoin('mata_kuliahs', 'staff.stf_mk_id', '=', 'mata_kuliahs.mk_id')
+                    ->select('staff.*', 'users.u_username','user_photos.up_id', 'user_photos.up_filename', 'user_photos.up_photo', 'staff_categories.sc_name', 'fakultas.fks_name', 'program_studis.ps_name', 'mata_kuliahs.mk_name')
                     ->where('staff.stf_u_id', '=', $id, 'and')
                     ->where('staff.stf_rec_status','=',1)
                     ->get();
         
         $data[0]->up_photo = base64_encode($data[0]->up_photo);
         $data[0]->u_username = str_replace('@','',$data[0]->u_username);
-        
+        $data[0]->stf_birthdate = date('Y-m-d', strtotime($data[0]->stf_birthdate));
+
         return $data;
     }
 }

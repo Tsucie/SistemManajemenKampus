@@ -1,12 +1,15 @@
 @extends('layouts.app', ['title' => __('User Profile')])
 
 @section('content')
+    @php
+        $userPhoto = auth()->user()->hasPhoto()->where('up_rec_status', 1)->get()->all();
+    @endphp
     @include('users.partials.header', [
-        'title' => __('Hello') . ' '. auth()->user()->name,
+        'title' => __('Hello') . ' '. str_replace('@','',auth()->user()->u_username),
         'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
         'class' => 'col-lg-7'
     ])   
-
+    
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -15,16 +18,20 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a href="#">
-                                    <img src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                                    @if (auth()->user()->hasPhoto()->exists())
+                                        <img src="data:image/{{ pathinfo($userPhoto[0]->up_filename, PATHINFO_EXTENSION) }};base64,{{ base64_encode($userPhoto[0]->up_photo) }}" class="rounded-circle" alt="Profile">
+                                    @else
+                                        <img src="{{ asset('argon') }}/img/theme/DefaultPPimg.jpg" class="rounded-circle" alt="Profile" >
+                                    @endif
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        <div class="d-flex justify-content-between">
+                        {{-- <div class="d-flex justify-content-between">
                             <a href="#" class="btn btn-sm btn-info mr-4">{{ __('Connect') }}</a>
                             <a href="#" class="btn btn-sm btn-default float-right">{{ __('Message') }}</a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
@@ -92,26 +99,26 @@
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('u_username') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('u_username', str_replace('@','',auth()->user()->u_username)) }}" required>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('u_username'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('u_username') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                <div class="form-group{{ $errors->has('u_email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
-                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required>
+                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('u_email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('u_email', auth()->user()->u_email) }}" required>
 
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('u_email'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <strong>{{ $errors->first('u_email') }}</strong>
                                         </span>
                                     @endif
                                 </div>
 
-                                <div class="text-center">
+                                <div class="text-right">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>
                             </div>
@@ -158,7 +165,7 @@
                                     <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm New Password') }}" value="" required>
                                 </div>
 
-                                <div class="text-center">
+                                <div class="text-right">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Change password') }}</button>
                                 </div>
                             </div>

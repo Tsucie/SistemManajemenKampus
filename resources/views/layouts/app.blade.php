@@ -7,12 +7,13 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        {{-- <title>{{ config('app.name', 'Argon Dashboard') }}</title> --}}
-        <title>Kampusku</title>
+        <title>{{ config('app.name', 'Kampusku') }}</title>
+        {{-- <title>Kampusku</title> --}}
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
         <!-- Extra details for Live View on GitHub Pages -->
 
         <!-- Icons -->
@@ -29,6 +30,7 @@
             @php
                 $userPhoto = auth()->user()->hasPhoto()->where('up_rec_status', 1)->get()->all();
             @endphp
+            <!-- Logout Form -->
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="u_id" value="{{ auth()->user()->u_id }}" hidden>
@@ -51,5 +53,18 @@
         <script src="{{ asset('assets') }}/vendor/notifIt/js/notifIt.js"></script>
         <script src="{{ asset('Scripts') }}/AlertMessage.js"></script>
         <script src="{{ asset('Scripts') }}/App.js"></script>
+        <!-- Alert Message -->
+        @if (Session::has('Error'))
+            <input type="text" id="error-message" value="{{ Session::get('Error') }}" hidden>
+            <script>
+                pesanAlert({ "code": 0, "message": document.getElementById('error-message').value });
+            </script>
+        @endif
+        @if (Session::has('Success'))
+            <input type="text" id="error-message" value="{{ Session::get('Success') }}" hidden>
+            <script>
+                pesanAlert({ "code": 1, "message": document.getElementById('error-message').value });
+            </script>
+        @endif
     </body>
 </html>
