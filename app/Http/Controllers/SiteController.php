@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DateTime;
 use App\Models\ImageProcessor;
 use Exception;
 use App\Models\UserPhoto;
@@ -77,7 +78,7 @@ class SiteController extends Controller
                 'up_u_id' => $u_id,
                 'up_rec_status' => 1,
                 'up_rec_createdby' => strlen(trim($site->creator)) == 0 ? 'system' : $site->creator,
-                'up_rec_created' => date('Y-m-d H:i:s')
+                'up_rec_created' => DateTime::Now()
             ]);
         }
 
@@ -88,7 +89,7 @@ class SiteController extends Controller
             $site->s_num_stat => $site->input($site->s_num_stat),
             's_rec_status' => 1,
             's_rec_createdby' => strlen(trim($site->creator)) == 0 ? 'system' : $site->creator,
-            's_rec_created' => date('Y-m-d H:i:s')
+            's_rec_created' => DateTime::Now()
         ]);
 
         $user = new Request();
@@ -99,7 +100,7 @@ class SiteController extends Controller
             'u_password' => Hash::make($site->u_password),
             'u_rec_status' => 1,
             'u_rec_createdby' => strlen(trim($site->creator)) == 0 ? 'system' : $site->creator,
-            'u_rec_created' => date('Y-m-d H:i:s')
+            'u_rec_created' => DateTime::Now()
         ]);
 
         DB::beginTransaction();
@@ -186,7 +187,7 @@ class SiteController extends Controller
             if ($request->up_id != null) {
                 $photo->merge([
                     'up_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                    'up_rec_updated' => date('Y-m-d H:i:s')
+                    'up_rec_updated' => DateTime::Now()
                 ]);
             }
             else
@@ -196,7 +197,7 @@ class SiteController extends Controller
                     'up_u_id' => $id,
                     'up_rec_status' => 1,
                     'up_rec_createdby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                    'up_rec_created' => date('Y-m-d H:i:s')
+                    'up_rec_created' => DateTime::Now()
                 ]);
             }
         }
@@ -221,14 +222,14 @@ class SiteController extends Controller
             's_status' => $request->s_status,
             's_contact' => $request->s_contact,
             's_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-            's_rec_updated' => date('Y-m-d H:i:s')
+            's_rec_updated' => DateTime::Now()
         ]);
 
         $user = new Request();
         $user->merge([
             'u_username' => '@'.$request->u_username,
             'u_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-            'u_rec_updated' => date('Y-m-d H:i:s')
+            'u_rec_updated' => DateTime::Now()
         ]);
 
         DB::beginTransaction();

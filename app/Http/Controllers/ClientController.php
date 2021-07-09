@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\DateTime;
 use Exception;
 use Intervention\Image\Facades\Image;
 use App\Models\ResponseMessage;
@@ -80,7 +81,7 @@ class ClientController extends Controller
                     'up_filename' => $up_filename,
                     'up_rec_status' => 1,
                     'up_rec_createdby' => strlen(trim($client->creator)) == 0 ? 'system' : $client->creator,
-                    'up_rec_created' => date('Y-m-d H:i:s')
+                    'up_rec_created' => DateTime::Now()
                 ]);
             }
 
@@ -90,7 +91,7 @@ class ClientController extends Controller
                 'c_code' => "C-".rand(1000000000,2147483647),
                 'c_rec_status' => 1,
                 'c_rec_createdby' => strlen(trim($client->creator)) == 0 ? 'system' : $client->creator,
-                'c_rec_created' => date('Y-m-d H:i:s')
+                'c_rec_created' => DateTime::Now()
             ]);
 
             $user = new Request();
@@ -101,7 +102,7 @@ class ClientController extends Controller
                 'u_password' => Hash::make($client->u_password),
                 'u_rec_status' => 1,
                 'u_rec_createdby' => strlen(trim($client->creator)) == 0 ? 'system' : $client->creator,
-                'u_rec_created' => date('Y-m-d H:i:s')
+                'u_rec_created' => DateTime::Now()
             ]);
 
             DB::beginTransaction();
@@ -220,7 +221,7 @@ class ClientController extends Controller
                         'up_photo' => $up_photo,
                         'up_filename' => $up_filename,
                         'up_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                        'up_rec_updated' => date('Y-m-d H:i:s')
+                        'up_rec_updated' => DateTime::Now()
                     ]);
                 }
                 else
@@ -232,7 +233,7 @@ class ClientController extends Controller
                         'up_filename' => $up_filename,
                         'up_rec_status' => 1,
                         'up_rec_createdby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                        'up_rec_created' => date('Y-m-d H:i:s')
+                        'up_rec_created' => DateTime::Now()
                     ]);
                 }
             }
@@ -242,14 +243,14 @@ class ClientController extends Controller
                 'c_name' => $request->c_name,
                 'c_remark' => $request->c_remark,
                 'c_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'c_rec_updated' => date('Y-m-d H:i:s')
+                'c_rec_updated' => DateTime::Now()
             ]);
 
             $user = new Request();
             $user->merge([
                 'u_username' => '@'.$request->u_username,
                 'u_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'u_rec_updated' => date('Y-m-d H:i:s')
+                'u_rec_updated' => DateTime::Now()
             ]);
 
             DB::beginTransaction();

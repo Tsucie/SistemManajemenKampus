@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DateTime;
 use App\Models\Fakultas;
 use App\Models\ResponseMessage;
 use Exception;
@@ -51,7 +52,7 @@ class FakultasController extends Controller
                 'fks_id' => $fks_count + 1,
                 'fks_rec_status' => 1,
                 'fks_rec_createdby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'fks_rec_created' => date('Y-m-d H:i:s')
+                'fks_rec_created' => DateTime::Now()
             ]);
 
             Fakultas::create($request->all());
@@ -112,7 +113,7 @@ class FakultasController extends Controller
 
             $request->merge([
                 'fks_rec_updatedby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'fks_rec_updated' => date('Y-m-d H:i:s')
+                'fks_rec_updated' => DateTime::Now()
             ]);
 
             Fakultas::query()->where('fks_id', '=', $id)->update($request->all());
@@ -148,7 +149,7 @@ class FakultasController extends Controller
             $update = [
                 'fks_rec_status' => -1,
                 'fks_rec_deletedby' => 'system',
-                'fks_rec_deleted' => date('Y-m-d H:i:s')
+                'fks_rec_deleted' => DateTime::Now()
             ];
 
             Fakultas::query()->where('fks_id', '=', $id)->update($update);

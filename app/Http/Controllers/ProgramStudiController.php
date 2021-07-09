@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DateTime;
 use App\Models\ProgramStudi;
 use App\Models\ResponseMessage;
 use Exception;
@@ -56,7 +57,7 @@ class ProgramStudiController extends Controller
                 'ps_id' => (int)$ps_id,
                 'ps_rec_status' => 1,
                 'ps_rec_createdby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'ps_rec_created' => date('Y-m-d H:i:s')
+                'ps_rec_created' => DateTime::Now()
             ]);
 
             ProgramStudi::create($request->all());
@@ -148,7 +149,7 @@ class ProgramStudiController extends Controller
             $update = [
                 'ps_rec_status' => -1,
                 'ps_rec_deletedby' => 'system',
-                'ps_rec_deleted' => date('Y-m-d H:i:s')
+                'ps_rec_deleted' => DateTime::Now()
             ];
 
             ProgramStudi::query()->where('ps_id', '=', $id)->update($update);

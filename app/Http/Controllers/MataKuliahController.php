@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DateTime;
 use App\Models\MataKuliah;
 use App\Models\ResponseMessage;
 use Exception;
@@ -65,7 +66,7 @@ class MataKuliahController extends Controller
                 'mk_desc' => $request->mk_desc,
                 'mk_rec_status' => 1,
                 'mk_rec_createdby' => strlen(trim($request->creator)) == 0 ? 'system' : $request->creator,
-                'mk_rec_created' => date('Y-m-d H:i:s')
+                'mk_rec_created' => DateTime::Now()
             ];
 
             MataKuliah::create($mk_data);
@@ -163,7 +164,7 @@ class MataKuliahController extends Controller
             $update = [
                 'mk_rec_status' => -1,
                 'mk_rec_deletedby' => 'system',
-                'mk_rec_deleted' => date('Y-m-d H:i:s')
+                'mk_rec_deleted' => DateTime::Now()
             ];
 
             MataKuliah::query()->where('mk_id', '=', $id)->update($update);

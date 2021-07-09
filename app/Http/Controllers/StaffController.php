@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DateTime;
 use Exception;
 use App\Models\ImageProcessor;
 use App\Models\ResponseMessage;
@@ -82,7 +83,7 @@ class StaffController extends Controller
                 'up_u_id' => $u_id,
                 'up_rec_status' => 1,
                 'up_rec_createdby' => strlen(trim($stf->creator)) == 0 ? 'system' : $stf->creator,
-                'up_rec_created' => date('Y-m-d H:i:s')
+                'up_rec_created' => DateTime::Now()
             ]);
         }
 
@@ -91,7 +92,7 @@ class StaffController extends Controller
             'stf_u_id' => $u_id,
             'stf_rec_status' => 1,
             'stf_rec_createdby' => strlen(trim($stf->creator)) == 0 ? 'system' : $stf->creator,
-            'stf_rec_created' => date('Y-m-d H:i:s')
+            'stf_rec_created' => DateTime::Now()
         ]);
 
         $user = new Request();
@@ -102,7 +103,7 @@ class StaffController extends Controller
             'u_password' => Hash::make($stf->u_password),
             'u_rec_status' => 1,
             'u_rec_createdby' => strlen(trim($stf->creator)) == 0 ? 'system' : $stf->creator,
-            'u_rec_created' => date('Y-m-d H:i:s')
+            'u_rec_created' => DateTime::Now()
         ]);
 
         DB::beginTransaction();
@@ -208,7 +209,7 @@ class StaffController extends Controller
             if ($req->up_id != null) {
                 $photo->merge([
                     'up_rec_updatedby' => strlen(trim($req->creator)) == 0 ? 'system' : $req->creator,
-                    'up_rec_updated' => date('Y-m-d H:i:s')
+                    'up_rec_updated' => DateTime::Now()
                 ]);
             }
             else
@@ -218,7 +219,7 @@ class StaffController extends Controller
                     'up_u_id' => $id,
                     'up_rec_status' => 1,
                     'up_rec_createdby' => strlen(trim($req->creator)) == 0 ? 'system' : $req->creator,
-                    'up_rec_created' => date('Y-m-d H:i:s')
+                    'up_rec_created' => DateTime::Now()
                 ]);
             }
         }
@@ -245,14 +246,14 @@ class StaffController extends Controller
             'stf_status' => $req->stf_status,
             'stf_contact' => $req->stf_contact,
             'stf_rec_updatedby' => strlen(trim($req->creator)) == 0 ? 'system' : $req->creator,
-            'stf_rec_updated' => date('Y-m-d H:i:s')
+            'stf_rec_updated' => DateTime::Now()
         ]);
 
         $user = new Request();
         $user->merge([
             'u_username' => '@'.$req->u_username,
             'u_rec_updatedby' => strlen(trim($req->creator)) == 0 ? 'system' : $req->creator,
-            'u_rec_updated' => date('Y-m-d H:i:s')
+            'u_rec_updated' => DateTime::Now()
         ]);
 
         DB::beginTransaction();
@@ -295,20 +296,20 @@ class StaffController extends Controller
             $photo->merge([
                 'up_rec_status' => -1,
                 'up_rec_deletedby' => 'system',
-                'up_rec_deleted' => date('Y-m-d H:i:s')
+                'up_rec_deleted' => DateTime::Now()
             ]);
         }
 
         $user = [
             'u_rec_status' => -1,
             'u_rec_deletedby' => 'system',
-            'u_rec_deleted' => date('Y-m-d H:i:s')
+            'u_rec_deleted' => DateTime::Now()
         ];
 
         $stf = [
             'stf_rec_status' => -1,
             'stf_rec_deletedby' => 'system',
-            'stf_rec_deleted' => date('Y-m-d H:i:s')
+            'stf_rec_deleted' => DateTime::Now()
         ];
 
         DB::beginTransaction();
